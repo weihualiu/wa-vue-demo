@@ -1,6 +1,12 @@
 {
   "name": "wasm_alert",
+  "description": "",
   "version": "0.1.0",
+  "license": "",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
   "files": [
     "wasm_alert_bg.wasm",
     "wasm_alert.js",

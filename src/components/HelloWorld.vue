@@ -1,58 +1,167 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-    <p>
-      For a guide and recipes on how to configure / customize this project,<br>
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
-    </p>
-    <h3>Installed CLI Plugins</h3>
-    <ul>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank" rel="noopener">babel</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint" target="_blank" rel="noopener">eslint</a></li>
-    </ul>
-    <h3>Essential Links</h3>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank" rel="noopener">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank" rel="noopener">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank" rel="noopener">Twitter</a></li>
-      <li><a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a></li>
-    </ul>
-    <h3>Ecosystem</h3>
-    <ul>
-      <li><a href="https://router.vuejs.org" target="_blank" rel="noopener">vue-router</a></li>
-      <li><a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a></li>
-      <li><a href="https://github.com/vuejs/vue-devtools#vue-devtools" target="_blank" rel="noopener">vue-devtools</a></li>
-      <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
-    </ul>
+  <div class="bigBox">
+    <div>
+      <button class="start" v-on:click="start">开始</button>
+      <button class="end" v-on:click="end">结束</button>
+    </div>
+    <div class="hello">
+      <div class="box" v-for="(item, index) in arr" :key="index">
+        <div class="tit" v-show='a==index'>+1</div>
+        <div class="tit">{{ item.tit }}</div>
+        <div class="chart">
+          <div class="top" v-if="item.tit <= 0">{{index+1}}</div>
+          <div class="bottom" v-else>{{index+1}}</div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+import {tls} from "../../wasm/wasm_bridge"
 export default {
   name: 'HelloWorld',
-  props: {
-    msg: String
-  }
+  data(){
+    return {
+      arr:[{
+      tit:0
+      },{
+      tit:0
+      },{
+      tit:0
+      },{
+      tit:0
+      },{
+      tit:0
+      },{
+      tit:0
+      },{
+      tit:0
+      },{
+      tit:0
+      },{
+      tit:0
+      },{
+      tit:0
+      },{
+      tit:0
+      },{
+      tit:0
+      },{
+      tit:0
+      },{
+      tit:0
+      },{
+      tit:0
+      },{
+      tit:0
+      },{
+      tit:0
+      },{
+      tit:0
+      },{
+      tit:0
+      },{
+      tit:0
+      },{
+      tit:0
+      },{
+      tit:0
+      },{
+      tit:0
+      },{
+      tit:0
+      },{
+      tit:0
+      },{
+      tit:0
+      },{
+      tit:0
+      },{
+      tit:0
+      },{
+      tit:0
+      },{
+      tit:0
+      },{
+      tit:0
+      },{
+      tit:0
+      },],
+      num:[],
+      bool:1,
+      a:''
+    }
+  },
+  updated(){
+    if(this.num.length==32){
+      alert('全部命中')
+    }
+  },
+  methods:{
+    async start(){
+      this.bool=1
+      while(this.num.length<32&&this.bool==1){
+        await tls().then(result => {
+          var data = result.data();
+          var data0 =data.substr(data.indexOf("ewp_production@") + 23, 2);
+          console.log(data0);
+          this.arr[data0-1].tit++
+          this.a=data0-1
+          if(this.num.indexOf(data0)<0){
+            this.num.push(data0)
+          }
+        })
+      }
+    },
+    end(){
+      this.bool=0
+      console.log(this.bool)
+    }
+    },
+  
+  
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h3 {
-  margin: 40px 0 0;
+.bigBox {
+  width: 100%;
 }
-ul {
-  list-style-type: none;
-  padding: 0;
+.start,
+.end {
+  width: 100px;
+  margin: 10px 30px;
 }
-li {
-  display: inline-block;
-  margin: 0 10px;
+.hello {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  padding: 20px;
 }
-a {
-  color: #42b983;
+.tit {
+  padding-left: 15%;
+  text-align: left;
+}
+.box {
+  width: 6%;
+  height: 100px;
+  margin: 20px 0;
+}
+.chart {
+  width: 40%;
+  height: 100%;
+}
+.top {
+  width: 100%;
+  height: 100%;
+  background-color: blanchedalmond;
+}
+.bottom {
+  width: 100%;
+  height: 100%;
+  background-color: brown;
+  color:white;
 }
 </style>

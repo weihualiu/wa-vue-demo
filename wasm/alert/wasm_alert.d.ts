@@ -1,10 +1,10 @@
 /* tslint:disable */
 /* eslint-disable */
 /**
-* @param {JRData} d
-* @returns {JRData}
+* @param {JRData} _d
+* @returns {any}
 */
-export function tunnel(d: JRData): JRData;
+export function tunnel(_d: JRData): any;
 /**
 * @param {string} name
 */
@@ -35,21 +35,4 @@ export class JRData {
 * @param {string} data
 */
   set_data(data: string): void;
-}
-/**
-*/
-export class JRHttpRequest {
-  free(): void;
-/**
-* @returns {string}
-*/
-  readonly body: string;
-/**
-* @returns {string}
-*/
-  readonly header: string;
-/**
-* @returns {string}
-*/
-  readonly param: string;
 }

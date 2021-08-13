@@ -24,6 +24,7 @@
     "babel-eslint": "^10.1.0",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^7.0.0",
+    "vue-cli-plugin-axios": "0.0.4",
     "webpack-chain": "^6.5.1"
   },
   "eslintConfig": {

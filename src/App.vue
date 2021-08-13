@@ -1,12 +1,12 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <button @click="js_greet('陈雷，你妈妈喊你回家吃饭')">Greet me</button>
-  <button @click="js_tls()">TLS</button>
+  <div>
+    <HelloWorld/>
+  </div>
 </template>
 
 <script>
 import HelloWorld from './components/HelloWorld.vue'
-import {tls} from "../wasm/wasm_bridge"
+// import {tls} from "../wasm/wasm_bridge"
 
 export default {
   name: 'App',
@@ -14,15 +14,19 @@ export default {
     HelloWorld
   },
   methods: {
+    
     async js_greet(message) {
       const wasm = import("../wasm/alert");
       const greet = (await wasm).greet;
       greet(message);
     },
 
-    js_tls() {
-      tls()
-    }
+    // async js_tls() {
+    //   tls().then(result => {
+    //     console.log(result.data());
+    //   });
+
+    // }
   }
 };
 
@@ -37,5 +41,8 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+iframe{
+  display: none;
 }
 </style>

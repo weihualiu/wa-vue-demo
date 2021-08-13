@@ -1,4 +1,5 @@
 const path = require("path");
+const { KeepAlive } = require("vue");
 const IS_PROD = ['production', 'prod'].includes(process.env.NODE_ENV);
 const resolve = (dir) => path.join(__dirname, dir);
 module.exports = {
@@ -55,6 +56,9 @@ module.exports = {
             https: false, // https:{type:Boolean}
             open: false, //配置自动启动浏览器
             hotOnly: true, // 热更新
+            headers: {
+                'Connection': 'close',
+              },
             // proxy: 'http://localhost:8080'   // 配置跨域处理,只有一个代理
             proxy: { //配置多个跨域
                 "/": {
@@ -68,4 +72,10 @@ module.exports = {
                 },
             }
         }
-}
+};
+
+{
+    {
+        false
+        }
+  }
